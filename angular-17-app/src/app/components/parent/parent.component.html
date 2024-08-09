@@ -1,0 +1,36 @@
+<h2 class="h2 text-center">Parent Child Component</h2>
+
+<div class="container">
+    <div class="row border p-5">
+        <h3>This is Parent Component</h3>
+        <div>My Own data a is {{a}}</div>
+        <div><input type="number" [(ngModel)]="a"></div>
+
+        <div><input type="text" [(ngModel)]="name">Name is {{name}}</div>
+
+        <div>My child data after clicking b button : b is {{child2data}}</div>
+
+        <div>
+            <div *ngFor="let car of cars;">
+                <span>{{car}}, </span>
+            </div>
+        </div>
+        <button (click)="cars.push('maruti')" class="btn btn-primary add-btn">Add New Car</button>
+
+        <div class="row">
+            <div class="col-sm-6 border p-2">
+                <h3>Child-1</h3>
+                <app-child-1 [aChild]="a"></app-child-1>
+            </div>
+            <div class="col-sm-6 border p-2">
+                <h3>Child-2</h3>
+                <app-child-2 [cars]="cars" [aChild2]="a" #child2Ref (bEvent)="receiveBData($event)"></app-child-2>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- catch the data here -->
+<!-- when this bEvent is triggered from child call the receiveBData(), which will have an event info.-->

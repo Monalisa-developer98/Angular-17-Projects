@@ -1,0 +1,41 @@
+
+<!-- ngFor with card -->
+
+<div class="container pb-5">
+<!-- <h1 class="text-center pt-4 mb-4">Product List</h1> -->
+    <ng-content></ng-content>
+
+    <div class="row mb-4">
+        <div class="col-sm-8">
+            <input [(ngModel)]="searchText" type="search" name="" id="" class="form-control">
+        </div>
+        <div class="col-sm-4">
+            <button class="btn btn-primary" (click)="sortProductsAsc()">Asc</button>
+            <button class="btn btn-secondary mx-1" (click)="sortProductsDesc()">Desc</button>
+        </div>
+    </div>
+    <div class="row">
+        @for(product of products | search:searchText | paginate: { itemsPerPage: 4, currentPage: p}; track product.id){     <!-- from left to right it executes -->
+            <div class="col-3">
+                <div class="card">
+                    <img [src]="product.image" class="card-img-top" alt="card-image">
+                    <div class="card-body">
+                      <h6 class="card-subtitle" [ngClass]="{ 'card-subtitle': product.category }">{{product.category}}</h6>
+                      <h5 class="card-title">{{product.title}}</h5>
+                      <p class="card-price">₹{{product.price}}</p>
+                      <p class="card-rating"><span class="rating">{{product.rating.rate}}</span> <span class="count">{{product.rating.count}} ratings</span></p>
+                      <p class="card-text text-truncate">{{ trimDescription(product.description) }}</p>                  
+                    </div>
+                  </div>
+            </div>
+        }
+
+    </div>
+    <div class="col-sm-4 offset-4 my-4">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+
+
+
+
+</div>

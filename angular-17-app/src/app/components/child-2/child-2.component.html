@@ -1,0 +1,14 @@
+<p>child-2 works!</p>
+<div>My Parent's data a is {{aChild2}}</div>
+
+<div>My own data b is {{b}}</div>
+
+
+<div>
+    @for(car of cars; track $index){
+        <span>{{car}}, </span>
+    }
+</div>
+
+<button class="btn btn-primary" (click)="sendDataToParent()">Send Data</button>
+<button class="btn btn-primary" (click)="refresh()">Refresh My Data</button>

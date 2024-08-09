@@ -1,0 +1,118 @@
+<p>data-binding works!</p>
+
+<!-- Data binding -->
+<h4>My name is {{name}}</h4>  <!--  --Interpolation -->
+
+<!-- ////// property binding will be written inside a tag .... in any tag like <span> or <h1> etc -->
+<h4>My name is <span [innerHTML]="name"></span></h4>  <!--  --Property Binding -->
+<h4>My name is <span bind-innerHTML="name"></span></h4>  <!--  --Property Binding -->
+<h4>My name is {{name}} and I am from {{address}}</h4>
+
+
+<!-- <img src="https://static.toiimg.com/thumb/110200548/110200548.jpg?height=746&width=420&resizemode=76&imgsize=1403081"> -->
+ <!-- --- in angular show image ------ -->
+ <img src="{{img_url}}">
+ <img [src]="img_url"> <!--  --Property Binding --- (This one is prefer)--> 
+ <img bind-src="img_url">
+
+ <br><hr><br>
+
+
+ <div>1 way Interpolation: <input value="{{name}}"></div>
+
+ <div>1 way Property Binding: <input [value] ="name"></div>
+ <div>1 way Property Binding: <input bind-value ="name"></div>
+
+
+  <!--// btn-1 is disabled bcoz {{ }} is for string concatenation,,,, it will not work in boolean value --> 
+   <!-- boolean- [] property binding,  string-  {{}} string binding -->
+ <p>
+    <button class="btn btn-primary" disabled="{{flag}}">Btn-1</button> <!----- disabled --> 
+    <button class="btn btn-primary" [disabled]="flag">Btn-2</button>  <!-- --- enabled --> 
+    <button class="btn btn-primary" bind-disabled="flag">Btn-2</button> <!-- --- enabled --> 
+
+    <!--  // Event Binding - 1 way- (view-> component) -->
+    <button class="btn btn-secondary" (click)="f1()">Click Me</button>
+    <button class="btn btn-secondary" on-click="f2()">Click Me</button>
+
+    <button class="btn btn-success" (click)="addition(10, 20)">Add</button>
+ </p>
+
+===================================================================================
+
+ <!-- 2 way binding(component<->View) -->
+
+ <div>2 way Property Binding: <input [(ngModel)] ="name" /></div>
+ <div>2 way Property Binding: <input bindon-ngModel ="name" /></div>
+
+<!--  known as Controlled input box -->
+
+    <div> Number1: <input type="number" [(ngModel)]="num1" /></div>
+    <div> Number2: <input type="number" [(ngModel)]="num2" /></div>
+    <div> Addition of {{num1}} && {{num2}} is {{num1+num2}}</div>
+
+
+
+    <!-- Attribute Binding
+    =================
+    -attributes are defined by HTML and properties are defined by the DOM.
+    -Every element doesn't have all the properties those are available as attribute.
+     <table [width]='myWidth' [attr.height]='myHeight'></table>
+     <tr><td [attr.colspan]="1 + 1">One-Two</td></tr>   Correct
+     <tr><td [colSpan]="1 + 1">One-Two</td></tr>   Correct
+     <tr><td [colspan]="1 + 1">One-Two</td></tr>   Wrong
+     
+    Note: 'colspan' is attribute whereAs 'colSpan' is property.  
+
+    For More see::  https://angular.io/guide/attribute-binding    -->
+
+======================================================================================
+
+<!--  Template Reference Variable -->
+<!--  known as Uncontrolled input box -->
+<h4>Template Reference Variable</h4>
+
+<input type="number" #num3 />
+<input type="number" ref-num4 />
+<button class="btn btn-warning" (click)="additionRef(num3.value, num4.value)">Add-2</button>
+
+
+============================================================================================
+
+<h4 style="margin-left: 20px; margin-top: 40px;">ASSIGNMENT: </h4>
+<br><br>
+
+<div class="container mb-4">
+    <p [hidden]='isVisibility'>I am a Paragraph. Click the below button to show/hide me.</p>
+<button (click)="toggleVisibility()" class="btn btn-success">Click here to show/hide content</button>
+<!-- <button (click)="isVisibility = !isVisibility" class="btn btn-success">btn-2</button> -->
+</div>
+
+
+<div class="container">
+    <textarea [(ngModel)]="inputText" rows="5" cols="50" maxlength="{{maxChars}}" placeholder="Type here" class="form-control"></textarea>
+    <p>Remaining characters are: {{ remainingChars }}</p>
+  </div>
+
+
+
+<div class="container">
+    <select name="country" id="country" [(ngModel)]="selectedCountry">
+        <option>Mumbai</option>
+        <option>Bbsr</option>
+        <option>Cuttack</option>
+        <option>Berhampur</option>
+    </select>
+    <p>Selected Country is: {{ selectedCountry }}</p>
+</div>
+
+<br>
+
+================================================================================
+<br><br>
+
+<div class="container">
+    <h1 [hidden]="flag">Hello Everyone, Good Morning</h1><br>
+    <button (click)="flag = !flag" class="btn btn-primary text-white">{{flag ? 'SHOW' : 'HIDE'}}</button>
+</div>
+ 

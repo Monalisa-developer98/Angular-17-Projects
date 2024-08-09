@@ -1,0 +1,32 @@
+.card img{
+    height: 300px !important;
+    width: 300px !important;
+}
+.card{
+    margin-bottom: 30px;
+}
+.card-subtitle{
+    color: #878787;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+}
+.card-price{   
+    font-size: 19px;
+    font-weight: bold;
+    line-height: 29px;
+}
+.rating{
+    padding: 2px 10px;
+    border-radius: 14px;
+    font-size: 16px;
+    background-color: #26a541;
+    vertical-align: baseline;
+    color: #fff;
+}
+.count{
+    padding-left: 8px;
+    font-weight: 500;
+    color: #878787;
+}

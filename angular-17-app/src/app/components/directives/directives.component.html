@@ -1,0 +1,180 @@
+<!-- *ngIf, *ngFor, ngSwitch, trackBy, tyle, ngStyle, ngClass, ifElse block -->
+
+
+<h2>This is directive Component</h2>
+
+<h3 *ngIf="flag">This is a Paragraph</h3>
+<h3 [hidden]="!flag">This is another Paragraph</h3>
+
+
+<!-- when yo use ngIf--- use Common Module -->
+<h3 class="h3 text-bg-primary">Ng-If</h3>
+
+<h5 *ngIf="n%2 == 0" [style.color]="n%2 == 0?'blue':'red'">{{n}} is Even Number</h5>
+<h5 *ngIf="n%2 != 0" [style.color]="n%2 == 0?'blue':'red'">{{n}} is Odd Number</h5>
+
+
+<!-- ngStyle -->
+<h5 *ngIf="n%2 == 0" [ngStyle]="n%2 == 0 ? style1: style2 ">{{n}} is Even Number</h5>
+<h5 *ngIf="n%2 != 0" [ngStyle]="n%2 == 0 ? style1: style2 ">{{n}} is Odd Number</h5>
+
+
+
+<!-- if condition is false bring the template from the odd block  -->
+<h5 *ngIf="number%2 == 0; else oddBlock">
+    <h6 [style.fontSize.px]="48">{{number}} is Even Number</h6>
+</h5>
+<ng-template #oddBlock>  <!-- #oddBlock is template reference variable...ng-template is pre-defined -->
+    <h6 [style.fontSize.px]="24">{{number}} is Odd Number</h6>
+</ng-template>
+
+
+<button class="btn btn-secondary" [ngClass]="!flag ? 'disabled' : '' ">Click Me</button>
+
+<p [ngClass]="!flag ? myClasses: '' ">This is a paragraph with ngClass. This is a paragraph. This is a paragraph.</p>
+<p [ngClass]="!flag ? getClasses(): '' ">This is a paragraph with ngClass. </p>
+
+
+<h3 class="h3 text-bg-primary">Ng-Switch</h3>
+
+<h5 [ngSwitch]="number">
+    <p *ngSwitchCase="1">Monday</p>
+    <p *ngSwitchCase="2">Tuesday</p>
+    <p *ngSwitchCase="3">Wednesday</p>
+    <p *ngSwitchCase="4">Thursday</p>
+    <p *ngSwitchCase="5">Friday</p>
+    <p *ngSwitchCase="6">Saturday</p>
+    <p *ngSwitchCase="0">Sunday</p>
+    <p *ngSwitchDefault>Not a valid number</p>
+  </h5>  
+
+<h3 class="h3 text-bg-primary">Ng-For</h3>
+
+<ol>
+    <li *ngFor="let car of cars">{{car}}</li>
+</ol>
+
+<div *ngFor="let car of cars; let i=index">{{i+1}}---{{car}}</div>
+
+
+<div class="container">
+    <h3 class="h3 text-primary text-center mb-3">Employee Table</h3>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th *ngFor="let col of employeeColumns">{{col}}</th>
+        <th>Index</th>
+        <th>First</th>
+        <th>Last</th>
+        <th>Even</th>
+        <th>Odd</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees; trackBy: empoyeeTrackById; let i=index; let f=first; let l=last; let e=even; let o=odd;">
+        <td>{{ employee.eId }}</td>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.sal }}</td>
+        <td>{{ employee.gender }}</td>
+        <td>{{i}}</td> 
+        <td>{{f}}</td>
+        <td>{{l}}</td>
+        <td>{{e}}</td>
+        <td>{{o}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button (click)="addEmployee()" class="btn btn-success">Add Employee</button>
+
+
+
+<h2 class="mt-5">Angular-17 Syntax</h2>
+------------------------------------------------------------------
+
+@if(flag){
+  <h4>Hello</h4>
+} @else{
+  <h4>Angular</h4>
+}
+
+<h3>Switch case:</h3>
+=======
+@switch(number){
+  @case(1) { <h4>Monday</h4> }
+  @case(2) { <h4>Tuesday</h4> }
+  @case(3) { <h4>Wednesday</h4> }
+  @case(4) { <h4>Thursday</h4> }
+  @case(5) { <h4>Friday</h4> }
+  @case(6) { <h4>Saturday</h4> }
+  @case(7) { <h4>Sunday</h4> }
+  @default { <h4>Not a Valid number</h4> }
+}
+
+
+<h3>Table with new Syntax :-</h3>
+==========================
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th *ngFor="let col of employeeColumns">{{col}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(employee of employees; track employee.eId){
+      <tr>
+        <td>{{ employee?.eId }}</td>
+        <td>{{ employee?.name }}</td>
+        <td>{{ employee?.sal }}</td>
+        <td>{{ employee?.gender }}</td>
+      </tr>
+    } @empty{
+      <h5>Sorry the content is Null.</h5>
+    }
+
+  </tbody>
+</table>
+
+
+==============================================================
+
+<h3>
+  <span highlight id="myspan">Students using *ngFor</span> <!-- span is the host element-->
+  <div *ngFor="let student of students">
+    {{student}}
+  </div>
+</h3>
+
+@for(student of students; track student){
+  <div>{{student}}</div>
+} @empty{
+  <div>No Student Available</div>
+}
+
+===============================================================
+
+<h3>without  ng-container ----- adds unnecessary div :-</h3>
+===============================================================
+<div *ngFor="let emp of employees">
+  <div *ngIf="emp.sal>700">{{emp | json}}</div>
+</div>
+
+
+<h3>ngContainer</h3>
+<ng-container *ngFor="let emp of employees"> <!-- without a div we can write *ngFor and *ngIf by using ng-container -->
+  <div *ngIf="emp.sal>700">{{emp | json}}</div>
+</ng-container>
+
+<h3>Sweet Alert</h3>
+<button class="btn btn-primary" (click)="openAlert()">Click Me</button>
+
+
+<!-- in this input box i will use a directive, numberonly directive -->
+<h3>Custom Directive</h3>
+<input type="text" name="" id="">  <!--regular input-box -->
+
+<!-- this input box is called host element -->
+<input numberonly type="text" name="" id=""> <!-- this input-box uses a numberonly custom directives -->
+
+</div>

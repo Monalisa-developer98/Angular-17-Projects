@@ -1,0 +1,136 @@
+<!-- In pipe, just transformation will happen. so that user can see the data -->
+
+<!-- 10 pipes
+1. lowercase
+2. uppercase
+3. titlecase
+4. currency
+5. date
+6. number
+7. percent
+8. json
+9. keyvalue - Iterate Object
+10. slice
+11. async(Observable) -->
+
+
+<div class="container border p-5">
+    <h1 class="text-center">This is Pipe Component</h1>
+
+    <!-- import ommon module to use pipes -->
+    <div>{{name}}</div>
+
+    <div>{{name | uppercase}} --- uppercase</div>
+    <div>{{name | lowercase}} --- lowercase</div>
+    <div>{{name | titlecase}} --- titlecase</div>
+
+    <hr>
+    
+    <h4>{{mySal}}</h4>
+    <h4>{{mySal | currency}}</h4> <!-- by default every browser takes as english US language so byfault $ symbol -->
+    <h4>{{mySal | currency:'EUR'}}</h4> <!-- EUR is the currency code for Euro -->
+
+    <!-- input | pipeName : param1 : param2 -->
+    <h4>{{mySal | currency:'INR'}}</h4>  
+    <h4>{{mySal | currency:'CAD'}}</h4>
+    <h4>{{mySal | currency:'CAD': 'symbol-narrow'}}</h4>
+
+    <!-- html unicode for china currency -->
+    <h4>{{mySal | currency : '&#20803;'}}</h4>  
+
+    <hr>
+
+    <!-- date pipe -->
+    <h4>{{myDOB}}</h4>
+    <h4>{{myDOB | date}}</h4>
+    <h4>{{myDOB | date : 'fullDate'}}</h4>
+    <h4>{{myDOB | date : 'mediumDate'}}</h4>
+    <h4>{{myDOB | date : 'shortDate'}}</h4>
+    <h4>{{myDOB | date : 'fullTime'}}</h4>
+    <h4>{{myDOB | date : 'mediumTime'}}</h4>
+    <h4>{{myDOB | date : 'shortTime'}}</h4>
+    <h4>{{myDOB | date : 'dd-MM-yy'}}</h4> <!-- m-minute, M-Month -->
+    <h4>{{ myDOB | date: "fullTime":"UTC" }}</h4>
+
+    <hr>
+
+    <!-- pipe chaining -->
+    <h4>{{ myDOB | date | uppercase }}</h4>
+    <h4>{{ myDOB | date | lowercase }}</h4>
+
+    <hr>
+
+    <!-- number pipe -->
+    <h4>{{ 12.111222333 | number: "3.2-5" }}</h4>
+    <h4>{{ 1.2 | number: "3.2-5" }}</h4>
+
+    <hr>
+
+    <!-- percent pipe -->
+    <h4>{{ 0.25 | percent }}</h4>
+    <h4>{{ 0.60 | percent }}</h4>
+
+    <hr>
+
+    <!-- json pipe -->
+    <h4>{{ user | json }}</h4>
+
+    <hr>
+    <!-- keyvalue pipe -->
+    @for(entry of user | keyvalue; track $index){  <!-- user object is converted to entry array -->
+        <h4>{{entry.key}} : {{entry.value}}</h4>
+    }
+
+    <hr>
+    <!-- keyvalue pipe -->
+    <h3>Map Pipe</h3>
+    ---------------------
+    <h3>{{myMap}}</h3>
+    @for(entry of myMap | keyvalue; track $index){  <!-- user object is converted to entry array -->
+        <h4>{{entry.key}} : {{entry.value}}</h4>
+    }
+
+    <hr>
+    <!-- slice pipe -->
+    <h3>Slice Pipe</h3>
+    -----------------------
+    <h4>{{arr | slice: 2:4}}</h4>
+
+
+     <!-- custom pipe -->
+    <textarea [(ngModel)]="msg" rows="3" cols="30" maxlength="100"></textarea>
+    <h5>Remaining: {{ msg | remaining : 100 }}</h5> <!-- --- remaining is a pipe, so we need to create a pipe- ng g p pipes/remaining -->
+    
+<!-- maxlength=200 will not work bcoz, we have hardcoded to 100 to, pass params in pipe -->
+    <textarea [(ngModel)]="msg" rows="3" cols="30" maxlength="200"></textarea>
+    <h5>Remaining: {{ msg | remaining : 200 }}</h5>
+
+    <textarea [(ngModel)]="msg" rows="3" cols="30" maxlength="50"></textarea>
+    <h5>Remaining: {{ msg | remaining : 50 }}</h5>  <!-- this works for 50 words -->
+
+<hr>
+<h3>Pure/Impure Pipe</h3>
+    @for(ele of arr; track $index){  
+        <span>{{ele}}, </span>
+    }
+
+    <hr>
+
+    @for(ele of arr2 | mysort; track $index){  
+        <span>{{ele}}, </span>
+    }
+
+    <!-- // when we play with object data or array data to push, we will use impure pipe,,, In pipename.pipe.ts --write pure:false.  -->
+
+    <!-- in this program if we push one number, it is going to last without sorting,,,, if we will use pure:false, it will sort and push -->
+    <input #newEle type="number" >
+    <button (click)="arr2.push(+newEle.value)">Add</button>
+
+
+    <hr>
+
+    <h3>Ordinal Pipe-- displays a cardinal number in ordinal format</h3>
+    <input id="number" type="number" [(ngModel)]="number" name="number" required>
+    <p *ngIf="number !== null">{{ number | ordinal }}</p>
+
+</div>

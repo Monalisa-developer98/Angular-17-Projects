@@ -1,0 +1,46 @@
+<div class="container p-5">
+    <h1 class="text-center mb-5">EMPLOYEE CRUD</h1>
+    <div class="row">
+        <div class="col-8">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        @for(col of employeeColumns; track col) {
+                            <th><h5>{{col}}</h5></th>
+                        }
+                      
+                      <th><h5>Action</h5></th>
+                    </tr>
+                    
+                  </thead>
+                  <tbody>
+                @for(emp of employees; track emp.eId){
+                    <tr>
+                        <td>{{emp.eId}}</td>
+                        <td>{{emp.name | genderprefix : emp.gender}}</td> <!-- before pipe it is input, after pipe it is argument -->
+                        <td>{{emp.sal}}</td>
+                        <td>{{emp.gender}}</td>
+                        <td>
+                            <button class="btn btn-primary me-2" (click)="viewDetails(emp)">View</button>
+                            <button class="btn btn-danger" (click)="delete(emp.eId)">Delete</button>
+                        </td>
+                    </tr>
+                }
+                @empty{
+                    <h5>Employee Not Found</h5>
+                  }
+              
+                </tbody>
+                </table>
+        </div>
+        <div class="form-table col-4 p-3">
+            <h3 class="h5 text-center mb-4">Add Employee Details</h3>
+            <input type="text" placeholder="Enter Id" class="form-control mb-3" #id>
+            <input type="text" placeholder="Enter Name" class="form-control mb-3" #name>
+            <input type="text" placeholder="Enter Salary" class="form-control mb-3" #salary>
+            <input type="text" placeholder="Enter Gender" class="form-control mb-3" #gender>
+            <button class="btn btn-success d-block" (click)="addEmployee(id.value, name.value, salary.value, gender.value)">Add Employee</button>
+        </div>
+    </div>
+</div>
+
