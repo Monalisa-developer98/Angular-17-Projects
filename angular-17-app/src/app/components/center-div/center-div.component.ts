@@ -13,6 +13,9 @@ import { Math2Component } from '../math2/math2.component';
 import { Math3Component } from '../math3/math3.component';
 import { TrafficLightComponent } from '../traffic-light/traffic-light.component';
 import { UsersComponent } from '../users/users.component';
+import { ProductListComponent } from '../product-list/product-list.component';
+import { ObservableDemo1Component } from '../observable-demo1/observable-demo1.component';
+import { ObservableDemo2Component } from '../observable-demo2/observable-demo2.component';
 
 
 @Component({
@@ -32,7 +35,10 @@ import { UsersComponent } from '../users/users.component';
     Math2Component,
     Math3Component,
     TrafficLightComponent,
-    UsersComponent
+    UsersComponent,
+    ProductListComponent,
+    ObservableDemo1Component,
+    ObservableDemo2Component
   ],
   templateUrl: './center-div.component.html',
   styleUrl: './center-div.component.css'

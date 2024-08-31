@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service';
+import { User, UserModel } from '../../models/user';
 
 @Component({
   selector: 'app-users',
@@ -9,22 +10,17 @@ import { UsersService } from '../../services/users.service';
   styleUrl: './users.component.css'
 })
 export class UsersComponent implements OnInit{
-
+  // users: any[] = [];
+  users: User[] = [];
   constructor(private userService: UsersService){}
 
   ngOnInit(): void {
-    const userObs = this.userService.getAllUsers();
-    console.log(userObs);
-    userObs.subscribe((res: any)=>{
-      console.log(res);
-      console.log("response.status: ", res.status);
-      console.log("response.body: ", res.body);
-    },
-    (error: any) => {  // if error in subscription
-      console.log(error);
-    },
-    () => { console.log('Completed') }  // this is called when the last chunk is received
-  )
+    this.userService.getAllUsers().subscribe((response: User[]) => {
+      this.users = response;
+      console.log(response); // array of objects
+      // but our expectation is array of employees
+    })
+
   }
   // component will subscribe the observable written in service
 }
